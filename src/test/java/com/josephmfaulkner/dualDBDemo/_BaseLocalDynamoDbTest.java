@@ -12,7 +12,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.dynamodb.services.local.main.ServerRunner;
 import software.amazon.dynamodb.services.local.server.DynamoDBProxyServer;
-
 public abstract class _BaseLocalDynamoDbTest {
 
     private static DynamoDBProxyServer dynamoDbProxyServer;
@@ -34,19 +33,17 @@ public abstract class _BaseLocalDynamoDbTest {
         dynamoDbClient = DynamoDbClient.builder()
                 .endpointOverride(URI.create("http://localhost:8000"))
                 .region(Region.US_EAST_1)
-                .credentialsProvider(StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create("dummy", "dummy")))
+                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("dummy", "dummy")))
                 .build();
 
         enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(dynamoDbClient)
                 .build();
-
     }
 
     @AfterAll
     public static void teardown() throws Exception {
-        dynamoDbClient.close();
+        if(dynamoDbClient != null) dynamoDbClient.close();
         dynamoDbProxyServer.stop();
     }
 
