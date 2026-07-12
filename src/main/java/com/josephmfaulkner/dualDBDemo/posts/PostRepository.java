@@ -1,4 +1,4 @@
-package com.josephmfaulkner.dualDBDemo.dao;
+package com.josephmfaulkner.dualDBDemo.posts;
 
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 
 import com.josephmfaulkner.dualDBDemo.exceptions.PostNotFoundException;
-import com.josephmfaulkner.dualDBDemo.models.Post;
+import com.josephmfaulkner.dualDBDemo.posts.models.Post;
 
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;

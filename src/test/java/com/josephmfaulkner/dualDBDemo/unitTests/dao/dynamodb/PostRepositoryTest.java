@@ -2,9 +2,10 @@ package com.josephmfaulkner.dualDBDemo.unitTests.dao.dynamodb;
 
 import com.josephmfaulkner.dualDBDemo._BaseLocalDynamoDbTest;
 import com.josephmfaulkner.dualDBDemo.exceptions.PostNotFoundException;
-import com.josephmfaulkner.dualDBDemo.dao.PostRepository;
-import com.josephmfaulkner.dualDBDemo.models.Comment;
-import com.josephmfaulkner.dualDBDemo.models.Post;
+import com.josephmfaulkner.dualDBDemo.posts.PostRepository;
+import com.josephmfaulkner.dualDBDemo.posts.models.Comment;
+import com.josephmfaulkner.dualDBDemo.posts.models.Post;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;

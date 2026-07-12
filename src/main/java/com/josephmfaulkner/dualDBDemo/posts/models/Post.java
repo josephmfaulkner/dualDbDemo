@@ -1,4 +1,4 @@
-package com.josephmfaulkner.dualDBDemo.models;
+package com.josephmfaulkner.dualDBDemo.posts.models;
 
 import java.util.List;
 

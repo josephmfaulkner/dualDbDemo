@@ -1,4 +1,4 @@
-package com.josephmfaulkner.dualDBDemo.controllers;
+package com.josephmfaulkner.dualDBDemo.posts;
 
 import java.util.List;
 
@@ -12,37 +12,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.josephmfaulkner.dualDBDemo.dao.PostRepository;
-import com.josephmfaulkner.dualDBDemo.models.Post;
+import com.josephmfaulkner.dualDBDemo.posts.models.Post;
 
 @RestController
 public class PostController {
 
-    private final PostRepository postRepository;
+    private final PostService postService;
 
-    public PostController(PostRepository postRepository) {
-        this.postRepository = postRepository;
+    public PostController(PostService postService) {
+        this.postService = postService;
     }
 
     @GetMapping("/api/posts")
     public List<Post> getPosts() {
-        return postRepository.getAllPosts();
+        return postService.getAllPosts();
     }
 
     @GetMapping("/api/posts/{id}")
     public Post getPostById(@PathVariable String id) {
-        return postRepository.getPostById(id);
+        return postService.getPostById(id);
     }
 
     @PostMapping("/api/posts")
     @ResponseStatus(HttpStatus.CREATED)
     public Post createPost(@RequestBody Post post) {
-        return postRepository.savePost(post);
+        return postService.createPost(post);
     }
 
     @DeleteMapping("/api/posts/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePost(@PathVariable String id) {
-        postRepository.deletePost(id);
+        postService.deletePost(id);
     }
 }
