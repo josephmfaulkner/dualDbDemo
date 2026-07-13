@@ -1,7 +1,7 @@
-package com.josephmfaulkner.dualDBDemo.integrationTests;
+package com.josephmfaulkner.dualDBDemo.integrationTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.josephmfaulkner.dualDBDemo._BaseLocalDynamoDbTest;
+import com.josephmfaulkner.dualDBDemo.testFixtures._BaseLocalDynamoDbTest;
 import com.josephmfaulkner.dualDBDemo.posts.models.Post;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +13,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 
+import software.amazon.awssdk.annotations.SdkTestInternalApi;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -27,7 +28,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @Import(DynamoDbTestConfiguration.class)
-@Tag("integration")
 public class PostsAPI extends _BaseLocalDynamoDbTest {
 
     @Autowired
@@ -63,9 +63,8 @@ public class PostsAPI extends _BaseLocalDynamoDbTest {
             )
         )
         .hasStatus(HttpStatus.CREATED)
+        .bodyJson()
         ;
     
     }
-
-
 }

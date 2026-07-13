@@ -1,6 +1,6 @@
 package com.josephmfaulkner.dualDBDemo.unitTests.dao.dynamodb;
 
-import com.josephmfaulkner.dualDBDemo._BaseLocalDynamoDbTest;
+import com.josephmfaulkner.dualDBDemo.testFixtures._BaseLocalDynamoDbTest;
 import com.josephmfaulkner.dualDBDemo.exceptions.PostNotFoundException;
 import com.josephmfaulkner.dualDBDemo.posts.PostRepository;
 import com.josephmfaulkner.dualDBDemo.posts.models.Comment;
@@ -20,7 +20,6 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("unit")
 public class PostRepositoryTest extends _BaseLocalDynamoDbTest {
 
     private PostRepository postRepository;

@@ -1,4 +1,4 @@
-package com.josephmfaulkner.dualDBDemo;
+package com.josephmfaulkner.dualDBDemo.testFixtures;
 
 import java.net.URI;
 

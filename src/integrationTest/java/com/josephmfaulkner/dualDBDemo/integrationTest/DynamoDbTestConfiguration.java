@@ -1,4 +1,4 @@
-package com.josephmfaulkner.dualDBDemo.integrationTests;
+package com.josephmfaulkner.dualDBDemo.integrationTest;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
