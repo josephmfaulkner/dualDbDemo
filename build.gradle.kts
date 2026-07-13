@@ -37,6 +37,15 @@ dependencies {
     testFixturesImplementation("software.amazon.dynamodb:DynamoDBLocal:3.3.0")
 }
 
+sourceSets {
+    named("testFixtures") {
+        java {
+            // Overrides the default "src/testFixtures/java"
+            setSrcDirs(listOf("src/tests/_testFixtures"))
+        }
+    }
+}
+
 
 tasks.withType<Test>().configureEach {
     testLogging {
@@ -54,10 +63,16 @@ testing {
             description = "Runs the integration test suite."
             group = "verification"
 
+            sources {
+                java {
+                    setSrcDirs(listOf("src/tests/unitTests"))
+                }
+            }
+
         }
 
         // 2. Declare a brand new Integration Test suite
-        val integrationTest by registering(JvmTestSuite::class) {
+        val integrationTests by registering(JvmTestSuite::class) {
             useJUnitJupiter()
             
             dependencies {
@@ -66,23 +81,30 @@ testing {
                 // Add this line to inherit the base class:
                 implementation(testFixtures(project())) 
             }
+
+            sources {
+                java {
+                    // Overrides the default "src/integrationTest/java"
+                    setSrcDirs(listOf("src/tests/integrationTests"))
+                }
+            }
         }
     }
 }
 
 // 3. (Optional) Wire the integration tests into the standard build lifecycle
 tasks.named("check") {
-    dependsOn(testing.suites.named("integrationTest"))
+    dependsOn(testing.suites.named("integrationTests"))
 }
 
 configurations {
     // Make integration tests inherit all dependencies from the standard unit tests
-    named("integrationTestImplementation") {
+    named("integrationTestsImplementation") {
         extendsFrom(configurations.testImplementation.get())
     }
     
     // (Optional) Inherit runtime dependencies too, like database drivers
-    named("integrationTestRuntimeOnly") {
+    named("integrationTestsRuntimeOnly") {
         extendsFrom(configurations.testRuntimeOnly.get())
     }
 }
