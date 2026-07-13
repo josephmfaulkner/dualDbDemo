@@ -1,3 +1,12 @@
 spring:
+  docker:
+    compose:
+      file: "../docker-compose.yml"
+      output:
+        read: all
   application:
     name: dualDBDemo
+
+logging:
+  level:
+    org.springframework.boot.docker.compose: DEBUG
