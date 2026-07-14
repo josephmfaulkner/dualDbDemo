@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
 	//implementation("org.springframework.boot:spring-boot-starter-web")
+    testImplementation ("io.rest-assured:rest-assured:6.0.1")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
 	implementation("software.amazon.awssdk:dynamodb-enhanced:2.47.2")
 	
@@ -54,7 +55,32 @@ tasks.withType<Test>().configureEach {
     testLogging {
         events("passed", "skipped", "failed")
     }
+    systemProperties(System.getProperties().map { it.key.toString() to it.value }.toMap())
 }
+
+/* 
+tasks.register<Test>("e2eTest") {
+    description = "Runs end-to-end API tests using REST Assured."
+    group = "verification"
+
+    useJUnitPlatform {
+        // Only execute tests marked with @Tag("e2e")
+        includeTags("e2e")
+    }
+
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+
+    // Capture the target.url system property from the command line and forward it to the test runner
+    System.getProperty("target.url")?.let { url ->
+        systemProperty("target.url", url)
+    }
+    
+    // Optional: Forces Gradle to always rerun these tests even if code hasn't changed
+    outputs.upToDateWhen { false }
+}
+*/
 
 testing {
     suites {
@@ -92,6 +118,26 @@ testing {
                 }
             }
         }
+
+        val e2eTests by registering(JvmTestSuite::class) {
+            useJUnitJupiter()
+
+            dependencies {
+                implementation(project()) 
+                
+                // Add this line to inherit the base class:
+                implementation(testFixtures(project())) 
+            }
+
+            sources {
+                java {
+                    // Overrides the default "src/integrationTest/java"
+                    setSrcDirs(listOf("src/tests/e2eTests"))
+                }
+            }
+        }
+
+
     }
 }
 
@@ -108,6 +154,16 @@ configurations {
     
     // (Optional) Inherit runtime dependencies too, like database drivers
     named("integrationTestsRuntimeOnly") {
+        extendsFrom(configurations.testRuntimeOnly.get())
+    }
+
+    // Make integration tests inherit all dependencies from the standard unit tests
+    named("e2eTestsImplementation") {
+        extendsFrom(configurations.testImplementation.get())
+    }
+    
+    // (Optional) Inherit runtime dependencies too, like database drivers
+    named("e2eTestsRuntimeOnly") {
         extendsFrom(configurations.testRuntimeOnly.get())
     }
 }

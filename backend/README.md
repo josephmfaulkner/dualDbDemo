@@ -10,10 +10,14 @@
 ./gradlew integrationTest --rerun
 `
 
-
 #### Start Application
 `
 ./gradlew bootRun --args='--server.port=8080'
+`
+
+#### Run e2e Tests (in another TAB)
+`
+./gradlew e2eTests --rerun -Dtarget.url=http://localhost:8080
 `
 
 #### Test API

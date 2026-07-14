@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Import(DynamoDbTestConfiguration.class)
-public class PostsAPI extends _BaseLocalDynamoDbTest {
+public class PostsAPITest extends _BaseLocalDynamoDbTest {
 
     @Autowired
     private MockMvcTester mockMvcTester;
