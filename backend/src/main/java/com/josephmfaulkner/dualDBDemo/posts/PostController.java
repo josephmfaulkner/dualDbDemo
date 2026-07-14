@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.josephmfaulkner.dualDBDemo.posts.models.Post;
 
 @RestController
+@RequestMapping("/api/posts")
 public class PostController {
 
     private final PostService postService;
@@ -23,23 +25,23 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/api/posts")
+    @GetMapping()
     public List<Post> getPosts() {
         return postService.getAllPosts();
     }
 
-    @GetMapping("/api/posts/{id}")
+    @GetMapping("/{id}")
     public Post getPostById(@PathVariable String id) {
         return postService.getPostById(id);
     }
 
-    @PostMapping("/api/posts")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Post createPost(@RequestBody Post post) {
         return postService.createPost(post);
     }
 
-    @DeleteMapping("/api/posts/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePost(@PathVariable String id) {
         postService.deletePost(id);
