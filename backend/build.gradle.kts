@@ -47,6 +47,7 @@ sourceSets {
             // Overrides the default "src/testFixtures/java"
             setSrcDirs(listOf("src/tests/_testFixtures"))
         }
+        resources { setSrcDirs(listOf("src/tests/_testFixtures/resources")) }
     }
 }
 
@@ -116,6 +117,10 @@ testing {
                     // Overrides the default "src/integrationTest/java"
                     setSrcDirs(listOf("src/tests/integrationTests"))
                 }
+                resources {
+                    setSrcDirs(listOf("src/tests/integrationTests/resources"))
+                }
+                
             }
         }
 
@@ -133,6 +138,9 @@ testing {
                 java {
                     // Overrides the default "src/integrationTest/java"
                     setSrcDirs(listOf("src/tests/e2eTests"))
+                }
+                resources {
+                    setSrcDirs(listOf("src/tests/e2eTests/resources"))
                 }
             }
         }

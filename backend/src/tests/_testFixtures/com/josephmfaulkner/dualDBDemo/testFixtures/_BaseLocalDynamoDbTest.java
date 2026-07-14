@@ -24,14 +24,14 @@ public abstract class _BaseLocalDynamoDbTest {
 
     @BeforeAll
     public static void setup() throws Exception {
-        String port = "8000";
+        String port = "8085";
         final String[] localArgs = {"-inMemory", "-port", port};
         System.out.println("Starting DynamoDB Local...");
         dynamoDbProxyServer = ServerRunner.createServerFromCommandLineArgs(localArgs);
         dynamoDbProxyServer.start();
 
         dynamoDbClient = DynamoDbClient.builder()
-                .endpointOverride(URI.create("http://localhost:8000"))
+                .endpointOverride(URI.create("http://localhost:8085"))
                 .region(Region.US_EAST_1)
                 .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("dummy", "dummy")))
                 .build();
