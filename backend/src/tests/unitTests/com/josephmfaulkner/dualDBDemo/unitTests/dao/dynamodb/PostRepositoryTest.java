@@ -4,6 +4,7 @@ import com.josephmfaulkner.dualDBDemo.testFixtures._BaseLocalDynamoDbTest;
 import com.josephmfaulkner.dualDBDemo.exceptions.PostNotFoundException;
 import com.josephmfaulkner.dualDBDemo.posts.dto.Comment;
 import com.josephmfaulkner.dualDBDemo.posts.dto.Post;
+import com.josephmfaulkner.dualDBDemo.posts.persistence.PostRepository;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.PostRepositoryDynamoDb;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.models.PostEntity;
 
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PostRepositoryTest extends _BaseLocalDynamoDbTest {
 
-    private PostRepositoryDynamoDb postRepository;
+    private PostRepository postRepository;
     private DynamoDbTable<PostEntity> postTable;
 
     @BeforeEach

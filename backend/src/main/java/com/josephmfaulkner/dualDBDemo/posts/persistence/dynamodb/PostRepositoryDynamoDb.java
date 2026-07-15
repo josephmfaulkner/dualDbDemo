@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.josephmfaulkner.dualDBDemo.exceptions.PostNotFoundException;
 import com.josephmfaulkner.dualDBDemo.posts.dto.Post;
+import com.josephmfaulkner.dualDBDemo.posts.persistence.PostRepository;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.models.PostEntity;
 
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -17,7 +18,7 @@ import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 @Repository
-public class PostRepositoryDynamoDb {
+public class PostRepositoryDynamoDb implements PostRepository {
     
     private final DynamoDbTable<PostEntity> postTable;
 
