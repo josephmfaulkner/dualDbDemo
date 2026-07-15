@@ -1,4 +1,4 @@
-package com.josephmfaulkner.dualDBDemo.posts.models;
+package com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.models;
 
 import java.util.List;
 
@@ -14,12 +14,12 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 @AllArgsConstructor
 @Builder
 @DynamoDbBean
-public class Post {
+public class PostEntity {
     private String id;
     private String title;
     private String content;
 
-    private List<Comment> comments;
+    private List<CommentEntity> comments;
 
     @DynamoDbPartitionKey
     public String getId() {

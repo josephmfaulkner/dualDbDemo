@@ -2,13 +2,13 @@ package com.josephmfaulkner.dualDBDemo.unitTests.dao.dynamodb;
 
 import com.josephmfaulkner.dualDBDemo.testFixtures._BaseLocalDynamoDbTest;
 import com.josephmfaulkner.dualDBDemo.exceptions.PostNotFoundException;
-import com.josephmfaulkner.dualDBDemo.posts.PostRepository;
-import com.josephmfaulkner.dualDBDemo.posts.models.Comment;
-import com.josephmfaulkner.dualDBDemo.posts.models.Post;
+import com.josephmfaulkner.dualDBDemo.posts.dto.Comment;
+import com.josephmfaulkner.dualDBDemo.posts.dto.Post;
+import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.PostRepositoryDynamoDb;
+import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.models.PostEntity;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -22,14 +22,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PostRepositoryTest extends _BaseLocalDynamoDbTest {
 
-    private PostRepository postRepository;
-    private DynamoDbTable<Post> postTable;
+    private PostRepositoryDynamoDb postRepository;
+    private DynamoDbTable<PostEntity> postTable;
 
     @BeforeEach
     public void setupTest() {
-        postRepository = new PostRepository(enhancedClient);
+        postRepository = new PostRepositoryDynamoDb(enhancedClient);
 
-        postTable = enhancedClient.table("Posts", TableSchema.fromBean(Post.class));
+        postTable = enhancedClient.table("Posts", TableSchema.fromBean(PostEntity.class));
         postTable.createTable(CreateTableEnhancedRequest.builder().build());
     }
 
@@ -47,13 +47,13 @@ public class PostRepositoryTest extends _BaseLocalDynamoDbTest {
                 .build();
         Post savedPost = postRepository.savePost(post);
 
-        assertNotNull(savedPost.getId());
+        assertNotNull(savedPost.id());
 
-        Post retrievedPost = postRepository.getPostById(savedPost.getId());
+        Post retrievedPost = postRepository.getPostById(savedPost.id());
         assertNotNull(retrievedPost);
-        assertEquals(savedPost.getId(), retrievedPost.getId());
-        assertEquals(post.getTitle(), retrievedPost.getTitle());
-        assertEquals(post.getContent(), retrievedPost.getContent());
+        assertEquals(savedPost.id(), retrievedPost.id());
+        assertEquals(post.title(), retrievedPost.title());
+        assertEquals(post.content(), retrievedPost.content());
     }
 
     @Test
@@ -72,16 +72,20 @@ public class PostRepositoryTest extends _BaseLocalDynamoDbTest {
         Post post = Post.builder().title("Original Title").content("Original Content").build();
         Post savedPost = postRepository.savePost(post);
 
-        savedPost.setTitle("Updated Title");
-        savedPost.setContent("Updated Content");
+        savedPost = Post.builder()
+                .id(savedPost.id())
+                .title("Updated Title")
+                .content("Updated Content")
+                .build();
+
         Post updatedPost = postRepository.updatePost(savedPost);
 
         assertNotNull(updatedPost);
-        assertEquals("Updated Title", updatedPost.getTitle());
-        assertEquals("Updated Content", updatedPost.getContent());
+        assertEquals("Updated Title", updatedPost.title());
+        assertEquals("Updated Content", updatedPost.content());
 
-        Post retrievedPost = postRepository.getPostById(savedPost.getId());
-        assertEquals("Updated Title", retrievedPost.getTitle());
+        Post retrievedPost = postRepository.getPostById(savedPost.id());
+        assertEquals("Updated Title", retrievedPost.title());
     }
 
     @Test
@@ -90,10 +94,10 @@ public class PostRepositoryTest extends _BaseLocalDynamoDbTest {
         Post savedPost = postRepository.savePost(post);
 
         // The post exists, so no exception should be thrown
-        assertDoesNotThrow(() -> postRepository.deletePost(savedPost.getId()));
+        assertDoesNotThrow(() -> postRepository.deletePost(savedPost.id()));
 
         // Now that it's deleted, trying to get it should throw an exception
-        assertThrows(PostNotFoundException.class, () -> postRepository.getPostById(savedPost.getId()));
+        assertThrows(PostNotFoundException.class, () -> postRepository.getPostById(savedPost.id()));
     }
 
     @Test

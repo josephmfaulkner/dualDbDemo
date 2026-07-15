@@ -1,4 +1,4 @@
-package com.josephmfaulkner.dualDBDemo.posts.models;
+package com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 @AllArgsConstructor
 @Builder
 @DynamoDbBean
-public class Comment {
+public class CommentEntity {
     private Integer id;
     private String content;
 }

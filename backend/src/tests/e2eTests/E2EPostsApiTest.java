@@ -1,12 +1,13 @@
-package com.josephmfaulkner.dualDBDemo.e2eTests;
 
-import com.josephmfaulkner.dualDBDemo.posts.models.Post;
+
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.http.HttpStatus;
+
+import com.josephmfaulkner.dualDBDemo.posts.dto.Post;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -34,8 +35,8 @@ public class E2EPostsApiTest extends BaseE2ETest {
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
                 .body("id", notNullValue())
-                .body("title", equalTo(newPost.getTitle()))
-                .body("content", equalTo(newPost.getContent()))
+                .body("title", equalTo(newPost.title()))
+                .body("content", equalTo(newPost.content()))
                 .extract().path("id");
 
         given()
@@ -44,8 +45,8 @@ public class E2EPostsApiTest extends BaseE2ETest {
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .body("id", equalTo(createdPostId))
-                .body("title", equalTo(newPost.getTitle()))
-                .body("content", equalTo(newPost.getContent()));
+                .body("title", equalTo(newPost.title()))
+                .body("content", equalTo(newPost.content()));
     }
 
     /* 

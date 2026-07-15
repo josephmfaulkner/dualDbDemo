@@ -1,16 +1,18 @@
 package com.josephmfaulkner.dualDBDemo.posts;
 
 import org.springframework.stereotype.Service;
-import com.josephmfaulkner.dualDBDemo.posts.models.Post;
+
+import com.josephmfaulkner.dualDBDemo.posts.dto.Post;
+import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.PostRepositoryDynamoDb;
 
 import java.util.List;
 
 @Service
 public class PostService {
 
-    private final PostRepository postRepository;
+    private final PostRepositoryDynamoDb postRepository;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepositoryDynamoDb postRepository) {
         this.postRepository = postRepository;
     }
 

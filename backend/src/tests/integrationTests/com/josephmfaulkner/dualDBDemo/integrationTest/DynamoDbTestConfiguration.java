@@ -17,7 +17,7 @@ public class DynamoDbTestConfiguration {
     @Primary
     public DynamoDbClient dynamoDbClient() {
         return DynamoDbClient.builder()
-                .endpointOverride(URI.create("http://localhost:8000"))
+                .endpointOverride(URI.create("http://localhost:8085"))
                 .region(Region.US_EAST_1)
                 .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("dummy", "dummy")))
                 .build();
