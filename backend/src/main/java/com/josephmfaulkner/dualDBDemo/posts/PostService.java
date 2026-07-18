@@ -1,5 +1,6 @@
 package com.josephmfaulkner.dualDBDemo.posts;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.josephmfaulkner.dualDBDemo.posts.dto.Post;

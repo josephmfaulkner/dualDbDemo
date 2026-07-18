@@ -44,7 +44,7 @@ public class PostRepositoryTest extends _BaseLocalDynamoDbTest {
         Post post = Post.builder()
                 .title("Test Title")
                 .content("Test Content")
-                .comments(Collections.singletonList(Comment.builder().id(1).content("A comment").build()))
+                .comments(Collections.singletonList(Comment.builder().id("1").content("A comment").build()))
                 .build();
         Post savedPost = postRepository.savePost(post);
 

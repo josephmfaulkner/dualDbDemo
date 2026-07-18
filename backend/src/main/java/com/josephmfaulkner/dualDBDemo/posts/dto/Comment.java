@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Builder
 public record Comment(
-    Integer id,
+    String id,
     String content
 ) {
 }

@@ -6,6 +6,22 @@ spring:
         read: all
   application:
     name: dualDBDemo
+    storage: 
+      engine: postgres # Or 'dynamodb'
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    username: username
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  logging:
+    bootstrap: 
 
 logging:
   level:

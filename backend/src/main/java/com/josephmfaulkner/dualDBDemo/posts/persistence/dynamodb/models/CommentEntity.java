@@ -12,6 +12,6 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 @Builder
 @DynamoDbBean
 public class CommentEntity {
-    private Integer id;
+    private String id;
     private String content;
 }
