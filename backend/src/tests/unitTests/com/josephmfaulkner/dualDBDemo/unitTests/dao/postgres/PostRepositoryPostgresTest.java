@@ -17,6 +17,7 @@ import com.josephmfaulkner.dualDBDemo.posts.dto.Post;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.PostRepository;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.postgres.PostJpaRepository;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.postgres.PostRepositoryPostgres;
+import com.josephmfaulkner.dualDBDemo.testFixtures._BaseLocalPostgresDbTest;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

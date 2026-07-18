@@ -1,4 +1,4 @@
-package com.josephmfaulkner.dualDBDemo.unitTests.dao.postgres;
+package com.josephmfaulkner.dualDBDemo.testFixtures;
 
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.TestPropertySource;
