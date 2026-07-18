@@ -1,4 +1,4 @@
-version: '3.7'
+version: '5.3.1'
 services:
   dynamodb-local:
     image: amazon/dynamodb-local:latest
@@ -12,7 +12,7 @@ services:
       depends_on:
         - dynamodb-local
       volumes:
-        - ./dynamodb-init:/dynamodb-init
+        - ./database-migrations/dynamodb-init:/dynamodb-init
       environment:
         # DynamoDB local requires credentials, but they can be fake
         AWS_REGION: "us-west-2"
@@ -32,3 +32,57 @@ services:
       AWS_SECRET_ACCESS_KEY: local
     depends_on:
       - dynamodb-local
+
+  flyway:
+    image: flyway/flyway:10-alpine
+    container_name: flyway_migrator
+    command: -url=jdbc:postgresql://postgres-database:5432/db -user=username -password=password migrate
+    volumes:
+      - ./database-migrations/postgres-migrations:/flyway/sql
+    depends_on:
+      postgres-database:
+        condition: service_healthy
+
+  postgres-database:
+    image: postgres:18-alpine  
+    container_name: dev_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U username -d db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pgdata:/var/lib/postgresql  
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+    command: >
+      postgres 
+      -c max_connections=20
+      -c shared_buffers=64MB
+      -c work_mem=4MB
+      -c maintenance_work_mem=16MB
+
+  postgres-web-gui:
+      image: sosedoff/pgweb:0.17.0
+      container_name: dev_pgweb
+      restart: unless-stopped
+      ports:
+        - "8081:8081"
+      environment:
+        # Automatically connects to your 'db' service using the credentials we set
+        - PGWEB_DATABASE_URL=postgres://username:password@postgres-database:5432/db?sslmode=disable
+      depends_on:
+        - postgres-database
+
+volumes:
+  pgdata:
