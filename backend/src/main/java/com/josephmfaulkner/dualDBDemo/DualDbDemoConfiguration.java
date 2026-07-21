@@ -42,18 +42,5 @@ public class DualDbDemoConfiguration {
         .build();
     }
 
-    @Bean
-    @Primary // Makes this the default choice whenever a class requests a generic PostRepository
-    public PostRepository postRepository(
-            PostRepositoryPostgres postgresRepo,
-            PostRepositoryDynamoDb dynamoRepo,
-            @Value("${spring.application.storage.engine:postgres}") String repoTech
-    ) {
-        return switch (repoTech.toLowerCase()) {
-            case "postgres"   -> postgresRepo;
-            case "dynamodb"   -> dynamoRepo;
-            default -> throw new IllegalArgumentException("Unsupported repository implementation: " + repoTech);
-        };
-    }
 
 }

@@ -15,8 +15,4 @@ public abstract class _BaseLocalPostgresDbTest {
     @ServiceConnection
     protected static final PostgreSQLContainer postgres = 
         new PostgreSQLContainer("postgres:18-alpine");
-
-    static {
-        postgres.start();
-    }
 }

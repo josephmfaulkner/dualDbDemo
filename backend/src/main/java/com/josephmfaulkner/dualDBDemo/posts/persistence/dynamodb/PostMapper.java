@@ -7,6 +7,7 @@ import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.models.PostEnti
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.UUID;
 
 public class PostMapper {
 
@@ -36,6 +37,9 @@ public class PostMapper {
     }
 
     private static CommentEntity toEntityComment(Comment record) {
-        return new CommentEntity(record.id(), record.content());
+        return new CommentEntity(
+            record.id() != null ? record.id() : UUID.randomUUID().toString(), 
+            record.content()
+        );
     }
 }

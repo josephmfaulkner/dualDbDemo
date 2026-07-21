@@ -12,7 +12,7 @@
 
 #### Start Application
 `
-./gradlew bootRun --args='--server.port=8080'
+./gradlew bootRun --console=plain --args='--server.port=8080'
 `
 
 #### Run e2e Tests (in another TAB)

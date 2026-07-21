@@ -22,6 +22,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   logging:
     bootstrap: 
+  threads: 
+    virtual:
+      enabled: true
 
 logging:
   level:

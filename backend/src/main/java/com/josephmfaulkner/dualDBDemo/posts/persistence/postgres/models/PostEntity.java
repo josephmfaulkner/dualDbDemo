@@ -8,16 +8,18 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.data.domain.Persistable;
+
 @Entity
 @Table(name = "POST")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostEntity {
+public class PostEntity implements Persistable<String> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    //@GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(nullable = false)
@@ -28,4 +30,19 @@ public class PostEntity {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<CommentEntity> comments;
+
+    @Transient
+    @Builder.Default
+    private boolean isNewRecord = false;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return isNewRecord;
+    }
+    
 }

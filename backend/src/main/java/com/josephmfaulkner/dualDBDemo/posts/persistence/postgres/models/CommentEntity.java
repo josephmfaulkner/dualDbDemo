@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class CommentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(nullable = false)

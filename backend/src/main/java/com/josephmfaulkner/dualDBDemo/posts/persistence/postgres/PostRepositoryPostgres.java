@@ -7,18 +7,25 @@ import com.josephmfaulkner.dualDBDemo.posts.persistence.PostRepository;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.postgres.models.CommentEntity;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.postgres.models.PostEntity;
 
+import jakarta.persistence.EntityManager;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-@Repository
+@Repository("postRepositoryPostgres")
 public class PostRepositoryPostgres implements PostRepository {
 
     private final PostJpaRepository postJpaRepository;
-    public PostRepositoryPostgres(PostJpaRepository postJpaRepository) {
+    //private final EntityManager entityManager;
+
+    public PostRepositoryPostgres(PostJpaRepository postJpaRepository, EntityManager entityManager) {
         this.postJpaRepository = postJpaRepository;
+        //this.entityManager = entityManager;
     }
 
     @Override
@@ -36,9 +43,16 @@ public class PostRepositoryPostgres implements PostRepository {
     }
 
     @Override
+    @Transactional
     public Post savePost(Post newPost) {
         PostEntity postEntity = toEntity(newPost);
+
+
+        boolean existsInPostgres = postEntity.getId() != null && postJpaRepository.existsById(postEntity.getId());
+        postEntity.setNewRecord(!existsInPostgres);
+        
         PostEntity savedEntity = postJpaRepository.save(postEntity);
+        
         return toRecord(savedEntity);
     }
 
@@ -70,7 +84,7 @@ public class PostRepositoryPostgres implements PostRepository {
 
     private PostEntity toEntity(Post record) {
         PostEntity postEntity = PostEntity.builder()
-                .id(record.id())
+                .id(record.id() != null ? record.id() : UUID.randomUUID().toString())
                 .title(record.title())
                 .content(record.content())
                 .build();
@@ -91,7 +105,7 @@ public class PostRepositoryPostgres implements PostRepository {
 
     private CommentEntity toEntityComment(Comment record, PostEntity postEntity) {
         return CommentEntity.builder()
-                .id(record.id())
+                .id(record.id() != null ? record.id() : UUID.randomUUID().toString())
                 .content(record.content())
                 .post(postEntity)
                 .build();

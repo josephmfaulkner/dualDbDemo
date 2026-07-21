@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import com.josephmfaulkner.dualDBDemo.exceptions.PostNotFoundException;
@@ -17,8 +16,8 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-
-@Repository
+            
+@Repository("postRepositoryDynamoDb")
 public class PostRepositoryDynamoDb implements PostRepository {
     
     private final DynamoDbTable<PostEntity> postTable;
