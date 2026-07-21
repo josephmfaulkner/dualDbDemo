@@ -21,11 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostRepositoryPostgres implements PostRepository {
 
     private final PostJpaRepository postJpaRepository;
-    //private final EntityManager entityManager;
 
     public PostRepositoryPostgres(PostJpaRepository postJpaRepository, EntityManager entityManager) {
         this.postJpaRepository = postJpaRepository;
-        //this.entityManager = entityManager;
     }
 
     @Override

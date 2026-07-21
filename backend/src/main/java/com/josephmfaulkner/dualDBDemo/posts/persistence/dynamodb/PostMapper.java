@@ -12,7 +12,7 @@ import java.util.UUID;
 public class PostMapper {
 
     public static Post toRecord(PostEntity entity) {
-        List<Comment> comments = entity.getComments() == null ? null :
+        List<Comment> comments = entity.getComments() == null ? List.of() :
                 entity.getComments().stream()
                         .map((comment) -> toRecordComment(comment))
                         .collect(Collectors.toList());
