@@ -7,8 +7,6 @@ import com.josephmfaulkner.dualDBDemo.posts.persistence.PostRepository;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.postgres.models.CommentEntity;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.postgres.models.PostEntity;
 
-import jakarta.persistence.EntityManager;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +20,7 @@ public class PostRepositoryPostgres implements PostRepository {
 
     private final PostJpaRepository postJpaRepository;
 
-    public PostRepositoryPostgres(PostJpaRepository postJpaRepository, EntityManager entityManager) {
+    public PostRepositoryPostgres(PostJpaRepository postJpaRepository) {
         this.postJpaRepository = postJpaRepository;
     }
 
