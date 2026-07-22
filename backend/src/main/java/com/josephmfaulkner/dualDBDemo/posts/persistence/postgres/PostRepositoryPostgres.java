@@ -56,12 +56,7 @@ public class PostRepositoryPostgres implements PostRepository {
 
     @Override
     public Post updatePost(Post existingPost) {
-        if (!postJpaRepository.existsById(existingPost.id())) {
-            throw new PostNotFoundException(existingPost.id());
-        }
-        PostEntity postEntity = toEntity(existingPost);
-        PostEntity updatedEntity = postJpaRepository.save(postEntity);
-        return toRecord(updatedEntity);
+        return this.savePost(existingPost);
     }
 
     @Override
