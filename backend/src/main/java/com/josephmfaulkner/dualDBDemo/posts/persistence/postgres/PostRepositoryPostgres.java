@@ -46,6 +46,12 @@ public class PostRepositoryPostgres implements PostRepository {
 
         boolean existsInPostgres = postEntity.getId() != null && postJpaRepository.existsById(postEntity.getId());
         postEntity.setNewRecord(!existsInPostgres);
+
+        if (postEntity.getComments() != null) {
+            postEntity.getComments().forEach(comment ->
+                comment.setNewRecord(postEntity.isNew())
+            );
+        }
         
         PostEntity savedEntity = postJpaRepository.save(postEntity);
         

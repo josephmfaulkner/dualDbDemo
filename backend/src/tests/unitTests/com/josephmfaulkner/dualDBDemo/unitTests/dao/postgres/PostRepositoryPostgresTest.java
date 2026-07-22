@@ -39,6 +39,7 @@ public class PostRepositoryPostgresTest extends _BaseLocalPostgresDbTest {
     @Test
     void shouldSaveAndQueryPost() {
         Post post = Post.builder()
+            .id("test-id-a")
             .title("Test new post Title")
             .content("Test new post Content")
         .build();
@@ -56,6 +57,7 @@ public class PostRepositoryPostgresTest extends _BaseLocalPostgresDbTest {
     @Test 
     void shouldSaveAndQueryPostWithComments() {
         Post post = Post.builder()
+            .id("test-id-b")
             .title("Test new post Title")
             .content("Test new post Content")
             .comments(

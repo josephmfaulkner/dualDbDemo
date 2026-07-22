@@ -19,7 +19,6 @@ import org.springframework.data.domain.Persistable;
 public class PostEntity implements Persistable<String> {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(nullable = false)

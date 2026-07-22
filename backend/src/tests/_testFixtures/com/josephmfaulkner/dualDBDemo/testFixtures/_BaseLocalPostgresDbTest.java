@@ -6,10 +6,11 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 
 
 @TestPropertySource(properties = {
-    "spring.flyway.locations=filesystem:../database-migrations/postgres-migrations,filesystem:database-migrations/postgres-migrations",
-    "spring.flyway.fail-on-missing-locations=true",
-    "spring.flyway.validate-on-migrate=true",
-    "spring.flyway.clean-disabled=false"
+    //"spring.flyway.locations=filesystem:../database-migrations/postgres-migrations,filesystem:database-migrations/postgres-migrations",
+    //"spring.flyway.fail-on-missing-locations=true",
+    //"spring.flyway.validate-on-migrate=true",
+    //"spring.flyway.clean-disabled=false"
+    "spring.jpa.hibernate.ddl-auto=create-drop"
 })
 public abstract class _BaseLocalPostgresDbTest {
     @ServiceConnection
