@@ -11,7 +11,7 @@ import com.josephmfaulkner.dualDBDemo.testFixtures._BaseLocalDynamoDbTest;
 @SpringBootTest
 @ActiveProfiles("test")
 @Import(DynamoDbTestConfiguration.class)
-class DualDbDemoApplicationTests extends _BaseLocalDynamoDbTest {
+class ApplicationTests extends _BaseLocalDynamoDbTest {
 
 	@Test
 	void contextLoads() { }

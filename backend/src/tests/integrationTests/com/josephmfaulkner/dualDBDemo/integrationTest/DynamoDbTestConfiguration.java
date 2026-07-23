@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
 import com.josephmfaulkner.dualDBDemo.posts.persistence.PostRepository;
+import com.josephmfaulkner.dualDBDemo.posts.persistence.dual.PostRepositoryDualWrite;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.PostRepositoryDynamoDb;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -18,6 +19,7 @@ import java.net.URI;
 @TestConfiguration
 public class DynamoDbTestConfiguration {
 
+    /* 
     @Bean
     @Primary
     public PostRepository postRepository(
@@ -25,6 +27,16 @@ public class DynamoDbTestConfiguration {
     ) {
         return dynamoRepo;
     };
+
+    @Bean
+    @Primary
+    public PostRepository postRepository(
+        PostRepositoryDualWrite dualWriteRepo
+    ) {
+        return dualWriteRepo;
+    };
+    */
+
 
     @Bean
     @Primary
@@ -41,4 +53,6 @@ public class DynamoDbTestConfiguration {
     public DynamoDbEnhancedClient dynamoDbEnhancedClient(DynamoDbClient dynamoDbClient) {
         return DynamoDbEnhancedClient.builder().dynamoDbClient(dynamoDbClient).build();
     }
+
+
 }

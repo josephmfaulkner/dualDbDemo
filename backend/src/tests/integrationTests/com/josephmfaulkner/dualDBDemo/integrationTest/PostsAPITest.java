@@ -1,7 +1,8 @@
 package com.josephmfaulkner.dualDBDemo.integrationTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.josephmfaulkner.dualDBDemo.testFixtures._BaseLocalDynamoDbTest;
+import com.josephmfaulkner.dualDBDemo.testFixtures._BaseDualDbTest;
+import com.josephmfaulkner.dualDBDemo.integrationTest.config.DualWriteDbTestConfiguration;
 import com.josephmfaulkner.dualDBDemo.posts.dto.Post;
 import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.models.PostEntity;
 
@@ -29,8 +30,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@Import(DynamoDbTestConfiguration.class)
-public class PostsAPITest extends _BaseLocalDynamoDbTest {
+@Import(DualWriteDbTestConfiguration.class)
+public class PostsAPITest extends _BaseDualDbTest {
 
     @Autowired
     private MockMvcTester mockMvcTester;

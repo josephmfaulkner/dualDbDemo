@@ -1,4 +1,4 @@
-package com.josephmfaulkner.dualDBDemo.integrationTest;
+package com.josephmfaulkner.dualDBDemo.integrationTest.config;
 
 import java.net.URI;
 
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
 import com.josephmfaulkner.dualDBDemo.posts.persistence.PostRepository;
-import com.josephmfaulkner.dualDBDemo.posts.persistence.postgres.PostRepositoryPostgres;
+import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.PostRepositoryDynamoDb;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -16,15 +16,17 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 @TestConfiguration
-public class PostgresTestConfiguration {
+public class DualWriteDbTestConfiguration {
 
+    /* 
     @Bean
     @Primary
     public PostRepository postRepository(
-        PostRepositoryPostgres postgresRepo
+        PostRepositoryDynamoDb dynamoRepo
     ) {
-        return postgresRepo;
+        return dynamoRepo;
     };
+    */
 
     @Bean
     @Primary
@@ -41,5 +43,6 @@ public class PostgresTestConfiguration {
     public DynamoDbEnhancedClient dynamoDbEnhancedClient(DynamoDbClient dynamoDbClient) {
         return DynamoDbEnhancedClient.builder().dynamoDbClient(dynamoDbClient).build();
     }
+
 
 }
