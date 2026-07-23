@@ -1,12 +1,8 @@
-package com.josephmfaulkner.dualDBDemo.integrationTest;
+package com.josephmfaulkner.dualDBDemo.integrationTest.config;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-
-import com.josephmfaulkner.dualDBDemo.posts.persistence.PostRepository;
-import com.josephmfaulkner.dualDBDemo.posts.persistence.dual.PostRepositoryDualWrite;
-import com.josephmfaulkner.dualDBDemo.posts.persistence.dynamodb.PostRepositoryDynamoDb;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -19,23 +15,6 @@ import java.net.URI;
 @TestConfiguration
 public class DynamoDbTestConfiguration {
 
-    /* 
-    @Bean
-    @Primary
-    public PostRepository postRepository(
-        PostRepositoryDynamoDb dynamoRepo
-    ) {
-        return dynamoRepo;
-    };
-
-    @Bean
-    @Primary
-    public PostRepository postRepository(
-        PostRepositoryDualWrite dualWriteRepo
-    ) {
-        return dualWriteRepo;
-    };
-    */
 
 
     @Bean

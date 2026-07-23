@@ -4,11 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Repository;
 
 import com.josephmfaulkner.dualDBDemo.posts.dto.Post;
@@ -23,12 +21,12 @@ public class PostRepositoryDualWrite implements PostRepository {
 
     private final PostRepository dynamoDbRepository;
     private final PostRepository postgresRepository;
-    private final AsyncTaskExecutor taskExecutor;
+    private final TaskExecutor taskExecutor;
 
     public PostRepositoryDualWrite(
             @Qualifier("postRepositoryDynamoDb") PostRepository dynamoDbRepository,
             @Qualifier("postRepositoryPostgres") PostRepository postgresRepository,
-            AsyncTaskExecutor taskExecutor
+            TaskExecutor taskExecutor
     ) 
     {
         log.info("PostRepositoryDualWrite constructor");
